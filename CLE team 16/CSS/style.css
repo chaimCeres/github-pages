@@ -1,0 +1,168 @@
+
+/* de navigatie bar  */
+.begin-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFACD;
+} 
+/* de navigatie afbeelding */
+div img{
+    height: 75px;
+    
+}
+/* class logo van de navigatie bar */
+#logo{
+    padding: 5px 20px;
+    transition: background 0.5s, filter 0.5s;
+}
+/* dit zorgt ervoor dat de navigatie bar logo een kleur krijgt als je het aanklikt  */
+#logo:hover{
+    background-color: #eeece7;
+   
+}
+/* de website linken van de navigatie bar 
+[de padding]: geeft de dikkte aan , 
+[text-decoration]: geeft de lijnen aan bij de link die heb ik op none gezet zodat je dat niet ziet.
+[color]: geeft de kleur van de link letters aan. 
+[transition] heeft de animatie, snelheid aan als je op de linken klikt.
+  */
+nav a{
+    padding: 20px;
+    text-decoration: none;
+    color: black;
+    transition: color 0.5s, background 0.5s;
+    
+}
+/* de linken hebben een achtergrond kleur als je erop klikt het verandert naar wit  */
+a:hover{
+    background-color:#dbc074 ;
+    color: white;
+}
+
+header{
+    width: 100%;
+    height: 50vh;
+    text-align: center;
+}
+
+*{
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;/* outline: 2px solid red; */
+  }
+  
+  body {
+      background-color: #E9ECEF;
+  }
+  
+
+  /* zhiwen stuk */
+  
+
+  .product {
+      text-align: center;
+      flex: 2;
+  }
+  
+  h1 {
+      font-size: 2.5rem;
+      padding: 3vw 0 2vw 5vw;
+  }
+  
+  header p {
+      font-size: 1.3rem;
+      padding: 5vw;
+      background-color: #F1FAEE;
+  }
+
+
+
+header p {
+    font-size: 1.3rem;
+    padding: 5vw;
+    background-color: #F1FAEE;
+}
+
+  
+  .btn {
+      padding-bottom: 2vw;
+  }
+  
+  button {
+      font-size: 1.3rem;
+      background-color:white;
+      border-radius: 8px;
+      padding: 1vw 2vw;
+  }
+  
+  button:hover {
+      background-color: #E9ECEF;
+  }
+  
+  main {
+      background-color: #A8DADC;
+      width: 100%;
+      height: auto;
+  }
+  
+
+  
+  main article {
+      display: flex;
+  }
+  
+  .container {
+      display: flex;
+      flex-direction: column-reverse;
+      flex: 1;
+      padding: 2vw 0 1vw 2vw;
+  }
+  
+  .hover-text-one {
+      font-size: 1.5rem;
+      border: 2px solid #E0FFFF;
+      border-radius: 10px;
+      padding: 4vw 3vw;
+      background-color:#BDE0FE;
+  }
+  
+  .hidden-text-one, .hidden-text-two {
+      font-size: 1.1rem;
+      display: none;
+      text-align: left;
+      padding: 0vw 5vw 2vw 5vw;
+      flex: 1;
+  }
+  
+  .hover-text-one:hover + .hidden-text-one, .hover-text-two:hover + .hidden-text-two {
+      display: block;
+  }
+  
+  .hover-text-two {
+      font-size: 1.2rem;
+      border: 2px solid #E0FFFF;
+      border-radius: 10px;
+      padding: 3.7vw 4.2vw;
+      background-color: #BDE0FE;
+  }
+  
+  h3 {
+      font-size: 1.2rem;
+  }
+  
+  footer {
+      width: 100%;
+      height: auto;
+  }
+  
+  footer nav {
+    font-size: 1.4rem;
+    padding: 2vw 0;
+    display: flex;
+    background-color: #FFFACD;
+  }
+  
+  footer a {
+      text-decoration: none;
+  }
