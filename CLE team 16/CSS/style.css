@@ -5,6 +5,8 @@
     justify-content: space-between;
     align-items: center;
     background-color: #FFFACD;
+    border-bottom: solid black 1px;
+    
 } 
 /* de navigatie afbeelding */
 div img{
@@ -42,8 +44,9 @@ a:hover{
 
 header{
     width: 100%;
-    height: 50vh;
+    height: 60vh;
     text-align: center;
+    border-bottom: solid black 1px;
 }
 
 *{
@@ -55,7 +58,76 @@ header{
   body {
       background-color: #E9ECEF;
   }
-  
+
+  /* contact form */
+
+  form{
+    text-align: center;
+    
+  }
+  .contacts-h2{
+    text-align: center;
+  }
+
+  /* contact formulier */
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.form-box{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.name{
+    display: flex;
+    gap: 10px;
+}
+
+.birth-city{
+    display: flex;
+    gap: 10px;
+}
+
+.input-box{
+    width: 25vw;
+    height: 35px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+    border: #3a3b3c solid 1px;
+}
+.input-long{
+    height: 35px;
+    border-radius: 5px;
+    padding-left: 5px;
+    border: #3a3b3c solid 1px;
+}
+select{
+    height: 40px;
+    padding-left: 5px;
+    border-radius: 5px;
+    border: #3a3b3c solid 1px;
+}
+
+.category-box{
+    display: flex;
+    gap: 10px;
+}
+
+textarea{
+    padding: 10px;
+    border-radius: 5px;
+    height: 100px;
+    border: #3a3b3c solid 1px;
+}
+
+#voorwaarden{
+    margin: 10px 0;
+}
+
 
   /* zhiwen stuk */
   
@@ -70,13 +142,6 @@ header{
       padding: 3vw 0 2vw 5vw;
   }
   
-  header p {
-      font-size: 1.3rem;
-      padding: 5vw;
-      background-color: #F1FAEE;
-  }
-
-
 
 header p {
     font-size: 1.3rem;
@@ -114,37 +179,10 @@ header p {
   
   .container {
       display: flex;
-      flex-direction: column-reverse;
+      flex-direction: column;
       flex: 1;
       padding: 2vw 0 1vw 2vw;
-  }
-  
-  .hover-text-one {
-      font-size: 1.5rem;
-      border: 2px solid #E0FFFF;
-      border-radius: 10px;
-      padding: 4vw 3vw;
-      background-color:#BDE0FE;
-  }
-  
-  .hidden-text-one, .hidden-text-two {
-      font-size: 1.1rem;
-      display: none;
-      text-align: left;
-      padding: 0vw 5vw 2vw 5vw;
-      flex: 1;
-  }
-  
-  .hover-text-one:hover + .hidden-text-one, .hover-text-two:hover + .hidden-text-two {
-      display: block;
-  }
-  
-  .hover-text-two {
-      font-size: 1.2rem;
-      border: 2px solid #E0FFFF;
-      border-radius: 10px;
-      padding: 3.7vw 4.2vw;
-      background-color: #BDE0FE;
+      
   }
   
   h3 {
@@ -161,6 +199,7 @@ header p {
     padding: 2vw 0;
     display: flex;
     background-color: #FFFACD;
+    margin: 0;
   }
   
   footer a {
