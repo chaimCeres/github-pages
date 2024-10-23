@@ -1,3 +1,11 @@
+* {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    /* outline: 2px solid red; */
+}
+
+/* Chaim */
 
 /* de navigatie bar  */
 .begin-nav {
@@ -44,29 +52,22 @@ a:hover{
 
 header{
     width: 100%;
-    height: 60vh;
+    height: 55vh;
     text-align: center;
     border-bottom: solid black 1px;
 }
 
-*{
-    margin: 0;
-    font-family: "Montserrat", sans-serif;
-    font-style: normal;/* outline: 2px solid red; */
-  }
-  
-  body {
-      background-color: #E9ECEF;
-  }
+header p {
+    font-size: 1.3rem;
+    padding: 5vw;
+    background-color: #F1FAEE;
+}
 
-  /* contact form */
+ /* contact form */
 
-  form{
+.contacts-h2{
     text-align: center;
-    
-  }
-  .contacts-h2{
-    text-align: center;
+    padding-top: 2vw;
   }
 
   /* contact formulier */
@@ -74,7 +75,9 @@ form{
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 0 1vw;
 }
+
 .form-box{
     display: flex;
     flex-direction: column;
@@ -94,8 +97,7 @@ form{
 .input-box{
     width: 25vw;
     height: 35px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 0 5px;
     border-radius: 5px;
     border: #3a3b3c solid 1px;
 }
@@ -128,80 +130,204 @@ textarea{
     margin: 10px 0;
 }
 
-
-  /* zhiwen stuk */
-  
-
-  .product {
-      text-align: center;
-      flex: 2;
-  }
-  
-  h1 {
-      font-size: 2.5rem;
-      padding: 3vw 0 2vw 5vw;
-  }
-  
-
-header p {
-    font-size: 1.3rem;
-    padding: 5vw;
-    background-color: #F1FAEE;
+.submit-btn {
+    text-align: center;
+    padding-bottom: 2vw;
 }
 
-  
-  .btn {
-      padding-bottom: 2vw;
-  }
-  
-  button {
-      font-size: 1.3rem;
-      background-color:white;
-      border-radius: 8px;
-      padding: 1vw 2vw;
-  }
-  
-  button:hover {
-      background-color: #E9ECEF;
-  }
-  
-  main {
-      background-color: #A8DADC;
-      width: 100%;
-      height: auto;
-  }
-  
+.submit-btn button {
+    padding: 0.5vw;
+    font-size: 1.2rem;
+}
 
-  
-  main article {
-      display: flex;
-  }
-  
-  .container {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      padding: 2vw 0 1vw 2vw;
-      
-  }
-  
-  h3 {
-      font-size: 1.2rem;
-  }
-  
-  footer {
-      width: 100%;
-      height: auto;
-  }
-  
-  footer nav {
-    font-size: 1.4rem;
-    padding: 2vw 0;
+/* Zhiwen */
+
+body {
+    background-color: #E9ECEF;
+}
+
+/* header */
+
+h1 {
+    font-size: 2.5rem;
+    padding: 3vw 0 2vw 0;
+}
+
+.btn {
+    padding: 10vw 0 2vw 0;
+}
+
+.btn button {
+    font-size: 1.3rem;
+    background-color:white;
+    border-radius: 8px;
+    padding: 1vw 2vw;
+}
+
+button:hover {
+    background-color: #E9ECEF;
+}
+
+/* main */
+
+main {
+    background-color: #A8DADC;
+    width: 100%;
+    height: auto;
+}
+
+/* article */
+
+h2 {
+    font-size: 1.8rem;
+    padding: 0 0 2vw 1vw;
+}
+
+h3, h4 {
+    font-size: 1.2rem;
+}
+
+p {
+    font-size: 1.1rem;
+}
+
+.article-one {
     display: flex;
-    background-color: #FFFACD;
-    margin: 0;
-  }
-  
-  footer a {
-      text-decoration: none;
-  }
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 2vw 0 1vw 2vw;
+}
+
+.text p {
+    padding-left: 1vw;
+}
+
+.article-two {
+    padding: 0 2vw;
+}
+
+.instruction {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 3vw;
+    padding: 2vw 0;
+}
+
+.grid-item {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 3vw;
+    background-color: #E9ECEF;
+}
+
+.article-three {
+    display: flex;
+    gap: 15vw;
+}
+
+.plus, .questions {
+    border-left: 2px solid black;
+}
+
+.plus p, .questions p {
+    padding: 0 0 1vw 1vw;
+}
+
+/* footer */
+
+footer {
+    width: 100%;
+    height: auto;
+    background-color: #B0A8B9;
+}
+
+footer nav {
+    font-size: 1.2rem;
+    padding: 1vw 0;
+}
+
+footer a {
+    text-decoration: none;
+}
+
+/* media-queries */
+
+@media (max-width: 1000px) {
+
+    /* navigator */
+
+    .begin-nav {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .begin-nav img {
+        width: 100%;
+        height: 30vh;
+    }
+
+    .links {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1vw;
+    }
+
+    .begin-nav a {
+        font-size: 1.5rem;
+    }
+
+    /* header */
+
+    header {
+        width: 100%;
+        height: auto;
+    }
+
+    /* main */
+
+    .article-one {
+        flex-direction: column;
+    }
+
+    .text h2 {
+        text-align: center;
+    }
+
+    .text p {
+        padding: 0 5vw 2vw 5vw;
+    }
+
+    .article-two {
+        text-align: center;
+    }
+
+    .instruction {
+        display: flex;
+        flex-direction: column;
+        padding: 0 5vw 5vw 2vw;
+    }
+
+    .article-three {
+        display: flex;
+        flex-direction: column;
+        gap: 7vw;
+        padding: 0 5vw 2vw 5vw;
+    }
+
+    /* footer */
+
+   footer nav {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    footer nav a {
+        font-size: 1.3rem;
+    }
+
+}
