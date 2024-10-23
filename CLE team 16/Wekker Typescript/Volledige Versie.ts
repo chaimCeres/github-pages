@@ -6,22 +6,24 @@ let UserChosenTime = 0;
 let TimerEnd = 0;
 let AlarmTimer = 0;
 let BackupTimerEnd = 0;
-let BackupTimer = 5;
+let BackupTimer = 60;
 
-let ChooseColor = "Value";
+let ChooseColor = 0x7F00FF;
 let LightsOn = 0;
 
 let SleepingPadPressed = false;
-let Notes = "CACACA";
-music.setVolume(160);
+let Notes = "CA";
+music.setVolume(200);
 
 
 light.setBrightness(10);
-let SetThreshold = 200;
+let SetThreshold = 1000;
+
 let SetPixelAmount = 0;
 
 let EnableChangeThreshold = false;
-
+input.pinA2.setThreshold(SetThreshold);
+input.pinA3.setThreshold(800);
 
 //Save State Changes
 if (!input.switchRight()) {     //Checks state switch at launch
@@ -55,8 +57,9 @@ input.pinA2.onEvent(ButtonEvent.Up, function () {   //Checks state sleeping pad
     }
 })
 
-input.pinA2.onEvent(ButtonEvent.Click, function () {   //Checks state TurnOffAlarm Button
-    TurnAlarmOff = true;
+input.pinA3.onEvent(ButtonEvent.Click, function () {   //Checks state TurnOffAlarm Button
+    TurnAlarmOff();
+    console.log("TurnAlarmOff is pressed");
 })
 
 
@@ -65,7 +68,7 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
     if (!EnableSleepTimer || EnableBackupTimer != 0) {
         if (!EnableChangeThreshold) {
             UserChosenTime++;
-            AdjustSleepTimer();    
+            AdjustSleepTimer();
         } else {
             SetThreshold += 100;
             AdjustPinThreshold();
@@ -87,8 +90,8 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
 })
 
 
-   //Checks if the UserChosenTime is within the correct range and then calls AdjustPixelAmount
-function AdjustSleepTimer() {    
+//Checks if the UserChosenTime is within the correct range and then calls AdjustPixelAmount
+function AdjustSleepTimer() {
     if (UserChosenTime > 10) {
         UserChosenTime = 10;
     }
@@ -96,37 +99,38 @@ function AdjustSleepTimer() {
         UserChosenTime = 1;
     }
     SetPixelAmount = -1 + UserChosenTime;
-    
-    ChooseColor = "Blue";
+
+    ChooseColor = 0x0000FF; //Blue
     AdjustPixelAmount();
 }
-    //Checks if the SetThreshold is within the correct range, sets pin threshold and then calls AdjustPixelAmount
+//Checks if the SetThreshold is within the correct range, sets pin threshold and then calls AdjustPixelAmount
 function AdjustPinThreshold() {
     if (SetThreshold < 100) {
         SetThreshold = 100;
-    } else  if (SetThreshold > 1000) {
+    } else if (SetThreshold > 1000) {
         SetThreshold = 1000;
     }
 
     input.pinA2.setThreshold(SetThreshold);
     console.log(`Threshold is currenlty ${SetThreshold}`);
-    
+
     SetPixelAmount = -1 + SetThreshold / 100;
 
-    ChooseColor = "Violet";
+    ChooseColor = 0x7F00FF; //violet
     AdjustPixelAmount();
 }
 
-    //Turns off all the lights and then sets the lights to the adjusted value
-function AdjustPixelAmount() {  
+//Turns off all the lights and then sets the lights to the adjusted value
+function AdjustPixelAmount() {
     light.clear();
     for (let OP = 0; OP <= SetPixelAmount; OP++) {
-        light.setPixelColor(OP, Colors.ChooseColor);
+        light.setPixelColor(OP, ChooseColor);
     }
 }
 
 
-    //First goes through safety checks to make sure nothing runs double and then sets and enables the alarm timer
+
+//First goes through safety checks to make sure nothing runs double and then sets and enables the alarm timer
 input.buttonsAB.onEvent(ButtonEvent.Click, function () {
     if (!EnableSleepTimer || EnableBackupTimer != 0) {
         if (!EnableChangeThreshold) {
@@ -145,74 +149,73 @@ input.buttonsAB.onEvent(ButtonEvent.Click, function () {
 
 
 loops.forever(function () {
-    
-    //When enabled checks for 
-if (EnableSleepTimer) {
-    // console.log(`SleepTimer ${control.timer1.seconds()}`);
-    if (control.timer1.seconds() >= TimerEnd) {
-    if (SleepingPadPressed) {
-        AlarmTimer = control.timer1.seconds() + 60;
-        EnableSleepTimer = false;
-        EnableBackupTimer = 2;
 
-        TurnAlarmOff = false;
-        EnableAlarm = true;
-    } else {
-        light.setAll(0x00FF00);
-        console.log("Bro already awoke");
-        pause(500);
-        light.clear();
-        EnableSleepTimer = false;
-    }
-}
-
-if (EnableBackupTimer > 0) {
-    if (EnableBackupTimer > 3) {
-        EnableBackupTimer = 0;
-    }
-
-    if (control.timer1.seconds() >= BackupTimerEnd) {
-        if (SleepingPadPressed) {
+    //When enabled checks for if the timer matches the set end time and if so starts the alarm 
+    if (EnableSleepTimer && !EnableAlarm) {
+        if (control.timer1.seconds() >= TimerEnd && SleepingPadPressed) {
+            console.log(`Sleeptimer is turned off`);
             AlarmTimer = control.timer1.seconds() + 60;
-            EnableBackupTimer = false;
-            
-            TurnAlarmOff = false;
+
+            BackupTimerEnd = control.timer1.seconds() + BackupTimer;
+            EnableSleepTimer = false;
+            EnableBackupTimer = 2;
             EnableAlarm = true;
-        } else {
-            light.setAll(Colors.Green);
-            console.log("You woke up this time");   
-            pause(1000);
-            light.clear();
-            EnableBackupTimer = false;
+        } else if (control.timer1.seconds() >= TimerEnd && !SleepingPadPressed) {
+            TurnAlarmOff();
         }
     }
-}
 
+    if (EnableBackupTimer > 0 && !EnableAlarm) {
+        if (EnableBackupTimer > 3) {
+            EnableBackupTimer = 0;
+        }
 
-
-
-
-if (EnableAlarm) {
-    light.setAll(Colors.Red);
-
-    if (TurnAlarmOff)  {
-        EnableSleepTimer = false;
-        EnableBackupTimer--;
-        light.setAll(Colors.Green);
-        pause(500);
-        light.clear;
-        music.stopAllSounds();
-        EnableAlarm = false;
-    }   else if (control.timer1.seconds() > AlarmTimer)  {
-        EnableBackupTimer++;
-        BackupTimerEnd = control.timer1.seconds() + BackupTimer;
-        EnableAlarm = false;
-    }   else {
-        music.playMelody(Notes, 5);
+        if (control.timer1.seconds() >= BackupTimerEnd) {
+            if (SleepingPadPressed) {
+                AlarmTimer = control.timer1.seconds() + 10;
+                EnableAlarm = true;
+                console.log("Turning on Alarm");
+            } else {
+                TurnAlarmOff();
+            }
+        }
     }
-}
-}
 
+
+
+
+
+    if (EnableAlarm) {
+        console.log("Alarm is being checked");
+        if (control.timer1.seconds() >= AlarmTimer) {
+            console.log("Extending alarm");
+            EnableBackupTimer++;
+            BackupTimerEnd = control.timer1.seconds() + BackupTimer;
+            EnableAlarm = false;
+        } else {
+            PlayThatFunkyMusic();
+        }
+    }
 })
 
+function PlayThatFunkyMusic() {
+    if (!EnableAlarm) {
+        return;
+    }
+    console.log("play that funky music");
+    light.setAll(Colors.Red);
+    music.playMelody(Notes, 10);
+    PlayThatFunkyMusic();
+}
 
+function TurnAlarmOff() {
+    if (!EnableAlarm) {
+        return;
+    }
+    EnableAlarm = false;
+    console.log("turning alarm off");
+    music.stopAllSounds();
+    EnableBackupTimer--;
+    light.clear;
+    light.setAll(Colors.Green);
+}
