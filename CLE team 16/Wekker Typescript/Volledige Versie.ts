@@ -12,7 +12,8 @@ let ChooseColor = 0x7F00FF;
 let LightsOn = 0;
 
 let SleepingPadPressed = false;
-let Notes = "CA";
+let AlarmButton = false;
+let Notes = "E D# F D# C G F - E D# F D# C G";
 music.setVolume(200);
 
 
@@ -22,8 +23,6 @@ let SetThreshold = 1000;
 let SetPixelAmount = 0;
 
 let EnableChangeThreshold = false;
-input.pinA2.setThreshold(SetThreshold);
-input.pinA3.setThreshold(800);
 
 //Save State Changes
 if (!input.switchRight()) {     //Checks state switch at launch
@@ -34,6 +33,9 @@ input.onSwitchMoved(SwitchDirection.Left, function () {     //Checks state switc
     if (!EnableSleepTimer || EnableBackupTimer != 0) {
         EnableChangeThreshold = true;
         light.clear();
+        if (input.pinA3.isPressed()) {
+            light.setAll(255)
+        }
     }
 })
 
@@ -59,6 +61,7 @@ input.pinA2.onEvent(ButtonEvent.Up, function () {   //Checks state sleeping pad
 
 input.pinA3.onEvent(ButtonEvent.Click, function () {   //Checks state TurnOffAlarm Button
     TurnAlarmOff();
+    AlarmButton = true;
     console.log("TurnAlarmOff is pressed");
 })
 
@@ -140,6 +143,8 @@ input.buttonsAB.onEvent(ButtonEvent.Click, function () {
             light.clear();
 
             UserChosenTime = 0;
+            input.pinA2.setThreshold(SetThreshold);
+            input.pinA3.setThreshold(500);
         }
     }
 })
@@ -159,6 +164,7 @@ loops.forever(function () {
             BackupTimerEnd = control.timer1.seconds() + BackupTimer;
             EnableSleepTimer = false;
             EnableBackupTimer = 2;
+            AlarmButton = false;
             EnableAlarm = true;
         } else if (control.timer1.seconds() >= TimerEnd && !SleepingPadPressed) {
             TurnAlarmOff();
@@ -173,6 +179,7 @@ loops.forever(function () {
         if (control.timer1.seconds() >= BackupTimerEnd) {
             if (SleepingPadPressed) {
                 AlarmTimer = control.timer1.seconds() + 10;
+                AlarmButton = false;
                 EnableAlarm = true;
                 console.log("Turning on Alarm");
             } else {
@@ -199,23 +206,30 @@ loops.forever(function () {
 })
 
 function PlayThatFunkyMusic() {
-    if (!EnableAlarm) {
+    if (!EnableAlarm || AlarmButton) {
         return;
     }
+
+    crickit.motor1.run(50);
     console.log("play that funky music");
     light.setAll(Colors.Red);
-    music.playMelody(Notes, 10);
+    music.playMelody(Notes, 100);
     PlayThatFunkyMusic();
+
 }
 
 function TurnAlarmOff() {
     if (!EnableAlarm) {
         return;
     }
+
+    crickit.motor1.run(0);
     EnableAlarm = false;
     console.log("turning alarm off");
     music.stopAllSounds();
     EnableBackupTimer--;
     light.clear;
     light.setAll(Colors.Green);
+    pause(2000);
+    light.clear();
 }
